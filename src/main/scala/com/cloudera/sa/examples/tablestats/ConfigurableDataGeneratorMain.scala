@@ -73,7 +73,7 @@ object ConfigurableDataGeneratorMain {
         })
       )
     val df = sqlContext.createDataFrame(megaDataRDD, schema)
-    df.saveAsParquetFile(outputPath)
+    df.write.parquet(outputPath)
 
     //Part D
     sc.stop()

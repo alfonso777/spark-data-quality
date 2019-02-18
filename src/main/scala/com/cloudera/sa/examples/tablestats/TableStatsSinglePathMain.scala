@@ -46,12 +46,7 @@ object TableStatsSinglePathMain {
     val schema = df.schema
 
     //Part B.1
-    val columnValueCounts = df.flatMap(r =>
-      (0 until schema.length).map { idx =>
-        //((columnIdx, cellValue), count)
-        ((idx, r.get(idx)), 1l)
-      }
-    ).reduceByKey(_ + _) //This is like word count
+    val columnValueCounts = df.rdd.flatMap(r => (0 until schema.length).map { idx => ((idx, r.get(idx).toString), 1l) }).reduceByKey(_ + _)
 
     //Part C
     val firstPassStats = columnValueCounts.mapPartitions[FirstPassStatsModel]{it =>

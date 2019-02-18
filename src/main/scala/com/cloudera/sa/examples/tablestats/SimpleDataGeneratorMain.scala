@@ -50,7 +50,7 @@ object SimpleDataGeneratorMain {
     println("columns:")
     df.columns.foreach( c => println(" - " + c))
 
-    df.saveAsParquetFile(outputPath)
+    df.write.parquet(outputPath)
 
     sc.stop()
   }
