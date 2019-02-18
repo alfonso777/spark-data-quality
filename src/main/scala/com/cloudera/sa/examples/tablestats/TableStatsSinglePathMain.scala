@@ -7,7 +7,7 @@ import org.apache.spark.sql.DataFrame
 import scala.collection.mutable
 
 /**
- * Created by ted.malaska on 6/27/15.
+ * Created by ted.malaska on 6/27/15. Updated By alfonso777
  */
 object TableStatsSinglePathMain {
   def main(args: Array[String]): Unit = {
