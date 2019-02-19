@@ -1,3 +1,10 @@
+# Stats by tables
+The ReportReportStatsApp object is useful to get stats of specific tables or all tables belong to a database. The `scripts/tables_stats.sh` is a script to use that functionality:
+
+`sh table_stats.sh bigdatadatalake_functional_dev`
+
+The output will be a file with stats of each column of each table of a database.
+
 # Spark.TableStatsExample
 Simple Spark example of generating table stats for use of data quality checks
 
