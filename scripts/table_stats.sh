@@ -6,7 +6,7 @@ if [ $# -lt 1 ]; then
   exit 1
 fi
 
-VERSION=1.0.1
+VERSION=1.1.0
 APP_NAME="DATAQUALITY-$VERSION"
 JAR_NAME=filtro-next-boletos-assembly-$VERSION.jar
 
@@ -17,13 +17,13 @@ if [ -z "$2" ]; then
   TABLES="ALL"
 fi
 
-MASTER=yarn
+MASTER=local[*]
 DEPLOYMODE=client
 EXECUTOR_CORES=3
-NUM_EXECUTORS=3 #2
+NUM_EXECUTORS=3
 EXECUTOR_MEMORY=4G
-DRIVER_MEMORY_OVERHEAD=1024 #512
-EXECUTOR_MEMORY_OVERHEAD=1024 #512
+DRIVER_MEMORY_OVERHEAD=1024
+EXECUTOR_MEMORY_OVERHEAD=1024
 
 spark-submit --verbose  \
            --name "$APP_NAME" \

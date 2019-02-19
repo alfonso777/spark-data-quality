@@ -1,5 +1,5 @@
 name := "dl-scala"
-version := "1.0.1"
+version := "1.1.0"
 scalaVersion := "2.11.8"
 
 resolvers ++= Seq(
@@ -19,4 +19,5 @@ assemblyMergeStrategy in assembly := {
 
 assemblyJarName in assembly := s"dataquality-${version.value}.jar"
 test in assembly := {}
-//mainClass in assembly := Some("com.cloudera.sa.examples.tablestats.ReportStatsApp")
+assemblyOption in assembly := (assemblyOption in assembly).value.copy(includeScala = false)
+mainClass in assembly := Some("com.cloudera.sa.examples.tablestats.ReportStatsApp")

@@ -7,7 +7,7 @@ import org.apache.spark.sql.DataFrame
 import scala.collection.mutable
 
 /**
- * Created by ted.malaska on 6/27/15. Updated By alfonso777
+ * Created by ted.malaska on 6/27/15. Customized By alfonso777
  */
 object TableStatsSinglePathMain {
   def main(args: Array[String]): Unit = {
@@ -35,22 +35,22 @@ object TableStatsSinglePathMain {
     //Part A
     var df = sqlContext.parquetFile(inputPath)
     //Part B
-    val firstPassStats = getFirstPassStat( df)
+    val firstPassStats = getFirstPassStat(inputPath, df)
     //Part E
     println(firstPassStats)
     //Part F
     sc.stop()
   }
 
-  def getFirstPassStat(df: DataFrame): FirstPassStatsModel = {
+  def getFirstPassStat(tableName: String, df: DataFrame): FirstPassStatsModel = {
     val schema = df.schema
 
     //Part B.1
-    val columnValueCounts = df.rdd.flatMap(r => (0 until schema.length).map { idx => ((idx, r.get(idx).toString), 1l) }).reduceByKey(_ + _)
+    val columnValueCounts = df.rdd.flatMap(r => (0 until schema.length).map { idx => ((schema(idx).name, Option(r.get(idx)).getOrElse("").toString), 1l) })
 
     //Part C
     val firstPassStats = columnValueCounts.mapPartitions[FirstPassStatsModel]{it =>
-      val firstPassStatsModel = new FirstPassStatsModel()
+      val firstPassStatsModel = new FirstPassStatsModel(tableName)
       it.foreach{ case ((columnIdx, columnVal), count) =>
         firstPassStatsModel += (columnIdx, columnVal, count)
       }

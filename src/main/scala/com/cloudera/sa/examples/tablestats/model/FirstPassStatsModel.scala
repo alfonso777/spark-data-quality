@@ -3,12 +3,12 @@ package com.cloudera.sa.examples.tablestats.model
 import scala.collection.mutable
 
 /**
- * Created by ted.malaska on 6/29/15.
+ * Created by ted.malaska on 6/29/15. Customized By alfonso777
  */
-class FirstPassStatsModel extends Serializable {
-  var columnStatsMap = new mutable.HashMap[Integer, ColumnStats]
+class FirstPassStatsModel(tableName: String) extends Serializable {
+  var columnStatsMap = new mutable.HashMap[String, ColumnStats]
 
-  def +=(colIndex: Int, colValue: Any, colCount: Long): Unit = {
+  def +=(colIndex: String, colValue: Any, colCount: Long): Unit = {
     columnStatsMap.getOrElseUpdate(colIndex, new ColumnStats) += (colValue, colCount)
   }
 
@@ -23,5 +23,5 @@ class FirstPassStatsModel extends Serializable {
     }
   }
 
-  override def toString = s"FirstPassStatsModel(columnStatsMap=$columnStatsMap)"
+  override def toString = s"FirstPassStatsModel(tableName=$tableName, columnStatsMap=$columnStatsMap)"
 }
